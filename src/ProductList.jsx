@@ -253,6 +253,7 @@ function ProductList() {
     e.preventDefault();
     setShowCart(false);
   };
+
   const handleAddToCart = (product) => {
   dispatch(addItem(product));
     setAddedToCart((prevState) => ({
@@ -260,6 +261,7 @@ function ProductList() {
         [product.name]: true, // Set the product name as key and value as true to indicate it's added to cart
     }));
     };
+
    const getTotalQuantity = () => {
         return cartItems.reduce((total, item) => total + item.quantity, 0);
     };
@@ -295,7 +297,7 @@ function ProductList() {
                                 <img className="product-image" src={plant.image} alt={plant.name} />
                                 <div className="product-title">{plant.name}</div>
                                 {/*Similarly like the above plant.name show other details like description and cost*/}
-                                <button  className={(plant.name in addedToCart && addedToCart[plant.name] === true) ? "product-button-added-to-cart" : "product-button"} onClick={() => handleAddToCart(plant)}>
+                                <button  className={(plant.name in addedToCart && addedToCart[plant.name] === true) ? "product-button-added-to-cart" : "product-button"} onClick={() => (plant.name in addedToCart && addedToCart[plant.name] === true) ? undefined : handleAddToCart(plant)}>
                                     {(plant.name in addedToCart && addedToCart[plant.name] === true) ? 'Added' : 'Add to Cart'}
                                 </button>
                             </div>
