@@ -23,6 +23,7 @@
   .about-us-content {
     font-size: 15px;
     margin-bottom: 20px;
+    word-wrap: break-word;
   }
   .plant_logo_right{
     text-align: right;
