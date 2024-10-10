@@ -262,6 +262,18 @@ function ProductList() {
     }));
     };
 
+   const handleDeleteFromCart = (product) =>{
+    setAddedToCart((prevState) => ({
+        ...prevState,
+        [product.name] : false
+    }));   
+  };
+
+  useEffect(() => {
+    // This will run after state.someKey changes
+    console.log('Updated state:', addedToCart);
+    }, [addedToCart]);
+
    const getTotalQuantity = () => {
         return cartItems.reduce((total, item) => total + item.quantity, 0);
     };
@@ -297,7 +309,7 @@ function ProductList() {
                                 <img className="product-image" src={plant.image} alt={plant.name} />
                                 <div className="product-title">{plant.name}</div>
                                 {/*Similarly like the above plant.name show other details like description and cost*/}
-                                <button  className={(plant.name in addedToCart && addedToCart[plant.name] === true) ? "product-button-added-to-cart" : "product-button"} onClick={() => (plant.name in addedToCart && addedToCart[plant.name] === true) ? undefined : handleAddToCart(plant)}>
+                                <button  className={(plant.name in addedToCart && addedToCart[plant.name] === true) ? "product-button-added-to-cart" : "product-button"}  onClick={() => {if ((plant.name in addedToCart && addedToCart[plant.name]) === false) handleAddToCart(plant)}}>
                                     {(plant.name in addedToCart && addedToCart[plant.name] === true) ? 'Added' : 'Add to Cart'}
                                 </button>
                             </div>
@@ -307,7 +319,7 @@ function ProductList() {
                     ))}
         </div>
  ) :  (
-    <CartItem onContinueShopping={handleContinueShopping}/>
+    <CartItem onContinueShopping={handleContinueShopping} onDeleteFromCart={handleDeleteFromCart}/>
 )}
     </div>
     );
